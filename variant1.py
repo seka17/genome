@@ -3,7 +3,6 @@ from math import log, e
 from gmpy2 import mpfr
 from gmpy2 import log, exp
 from time import clock
-from numbapro import vectorize, cuda
 import numpy as np
 
 big_number = 300
@@ -13,7 +12,6 @@ def s(low, high):
     a = to_sum(low, high)
     print ("Time:", clock() - t1)
 
-@vectorize(['float64(int64, int64)'], target='gpu')
 def to_sum(low, high):
     # t1 = clock()
     if low > high:

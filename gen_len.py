@@ -14,7 +14,7 @@ def variant_count(l, L, N):
     return res
 
 def main():
-    L = 4
+    L = 5
     N = 2
 
     N_ITER = 10**5
