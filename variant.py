@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
-
 from math import log, e
 from gmpy2 import mpfr
+from gmpy2 import log
+import numpy
 
 big_number = 300
 
@@ -28,12 +29,25 @@ def p_line(k, L, n, u):
 def to_sum(low, high):
     if low > high:
         return 0
-    return sum(map(lambda x: log(x), [x for x in xrange(low, high + 1)]))
+    res = 0
+    for x in xrange(low, high + 1):
+        res += log(x)
+    # sum(map(lambda x: log(x), [x for x in xrange(low, high + 1)]))
+    return res
+
+def to_sum_n(low, high):
+    t1 = clock()
+    if low > high:
+        return 0.0
+    res = numpy.sum(numpy.log(numpy.arange(low, high + 1)))
+    print "Time:", clock() - t1
+    return res
+
 
 def variant(t, u, k, n, l):
-    a1 = to_sum(t-k+2, t)
-    a2 = to_sum(l-t-u-n+k+1, l-t-u-1)
-    a3 = to_sum(l-n+1, l)
-    a4 = to_sum(n-k, n)
-    res = a1+a2+a4-a3-ln_factorial(k-1)
+    a1 = to_sum(t - k + 2, t)
+    a2 = to_sum(l - t - u - n + k + 1, l - t - u - 1)
+    a3 = to_sum(l - n + 1, l)
+    a4 = to_sum(n - k, n)
+    res = a1 + a2 + a4 - a3 - ln_factorial(k - 1)
     return res

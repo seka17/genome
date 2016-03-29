@@ -1,7 +1,7 @@
-import variant as var
-from time import clock
-from gmpy2 import exp
+from math import log, exp
 import numpy
+from time import clock
+
 
 big_number = 300
 
@@ -20,13 +20,13 @@ def p_line(k, L, n, u):
 
 
 def variant(t, u, k, n, l):
-    t1 = clock()
+    # t1 = clock()
     a1 = to_sum(t - k + 2, t)
     # print clock()-t1
-    t1 = clock()
+    # t1 = clock()
     a2 = to_sum(l - t - u - n + k + 1, l - t - u - 1)
     # print clock()-t1
-    t1 = clock()
+    # t1 = clock()
     # print clock()-t1
     res = a1 + a2
     return res
@@ -41,15 +41,14 @@ def ln_factorial(n):
     return res
 
 
-def to_sum(low, high):
+cdef float to_sum(int low, int high):
     if low > high:
-        return 0
-    return numpy.sum(numpy.log(numpy.arange(low, high + 1)))
-
-# t = clock()
-# # var.variant(10**5, 10**3, 10**4,10**6, 3*10**9)
-# print var.p_line(10**3, 3*10**9, 10**6, 10**3)
-# print "Time: %f" % (clock()-t)
+        return 0.0
+    # return numpy.sum(numpy.log(numpy.arange(low, high + 1)))
+    cdef float a = 0.0
+    for x in xrange(low, high+1):
+        a += log(x)
+    return a
 
 t = clock()
 variant(10**6, 10**3, 10**4, 10**6, 3 * 10**9)
